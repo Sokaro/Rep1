@@ -1,5 +1,5 @@
 # Rep1
 Hi Humans!
-Piza Vitalii
+My name is Piza Vitalii
 PMa 32
 №21 Pharmacy
