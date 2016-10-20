@@ -23,6 +23,7 @@ namespace WpfApplication1
     interface IMedicals
     {
         void Modify(int a,double b,double c);
+        void AddDis(Disease a);
     }
 
     public abstract class Medicals
@@ -33,6 +34,7 @@ namespace WpfApplication1
         protected double price;
         protected string producer;
         protected double dosage;
+        protected List<Disease> diseases;
 
         public Medicals() { name = ""; amount = 0; interchangeability = ""; price = 0.0; producer = ""; dosage = 0.0; }
         public Medicals(string name, int amount, string interchangeability, double price, string producer, double dosage)
@@ -42,6 +44,36 @@ namespace WpfApplication1
             this.interchangeability = interchangeability;
             this.producer = producer;
             this.dosage = dosage;
+        }
+        public string Name
+        {
+            set { name = value; }
+            get { return name; }
+        }
+        public int Amount
+        {
+            set { amount = value; }
+            get { return amount; }
+        }
+        public string Interchangeability
+        {
+            set { interchangeability = value; }
+            get { return interchangeability; }
+        }
+        public double Price
+        {
+            set { price = value; }
+            get { return price; }
+        }
+        public string Produces
+        {
+            set { producer = value; }
+            get { return producer; }
+        }
+        public double Dosage
+        {
+            set { dosage = value; }
+            get { return dosage; }
         }
     }
 
@@ -55,36 +87,6 @@ namespace WpfApplication1
          
         }
 
-        public string Name
-        {
-            set { name = value; }
-            get { return name; }
-        }
-        public int Amount
-        {
-            set { amount = value; }
-            get { return amount; }
-        }
-        public string Interchangeability
-        {
-            set { interchangeability = value; }
-            get { return interchangeability; }
-        }
-        public double Price
-        {
-            set { price = value; }
-            get { return price; }
-        }
-        public string Produces
-        {
-            set { producer = value; }
-            get { return producer; }
-        }
-        public double Dosage
-        {
-            set { dosage = value; }
-            get { return dosage; }
-        }
         public string Form
         {
             get { return form; }
@@ -95,6 +97,11 @@ namespace WpfApplication1
             amount = a;
             price = b;
             dosage = c;
+        }
+
+        public void AddDis(Disease a)
+        {
+            diseases.Add(a);
         }
     }
     public class Injection:Medicals,IMedicals
@@ -108,36 +115,6 @@ namespace WpfApplication1
             this.placetoinject = placetoinject;
         }
 
-        public string Name
-        {
-            set { name = value; }
-            get { return name; }
-        }
-        public int Amount
-        {
-            set { amount = value; }
-            get { return amount; }
-        }
-        public string Interchangeability
-        {
-            set { interchangeability = value; }
-            get { return interchangeability; }
-        }
-        public double Price
-        {
-            set { price = value; }
-            get { return price; }
-        }
-        public string Produces
-        {
-            set { producer = value; }
-            get { return producer; }
-        }
-        public double Dosage
-        {
-            set { dosage = value; }
-            get { return dosage; }
-        }
         public string Form
         {
             get { return form; }
@@ -147,6 +124,10 @@ namespace WpfApplication1
             amount = a;
             price = b;
             dosage = c;
+        }
+        public void AddDis(Disease a)
+        {
+            diseases.Add(a);
         }
     }
     public class Salve:Medicals,IMedicals
@@ -158,36 +139,6 @@ namespace WpfApplication1
         {
          
         }
-        public string Name
-        {
-            set { name = value; }
-            get { return name; }
-        }
-        public int Amount
-        {
-            set { amount = value; }
-            get { return amount; }
-        }
-        public string Interchangeability
-        {
-            set { interchangeability = value; }
-            get { return interchangeability; }
-        }
-        public double Price
-        {
-            set { price = value; }
-            get { return price; }
-        }
-        public string Produces
-        {
-            set { producer = value; }
-            get { return producer; }
-        }
-        public double Dosage
-        {
-            set { dosage = value; }
-            get { return dosage; }
-        }
         public string Form
         {
             get { return form; }
@@ -198,6 +149,10 @@ namespace WpfApplication1
             price = b;
             dosage = c;
         }
+        public void AddDis(Disease a)
+        {
+            diseases.Add(a);
+        }
     }
 
     public abstract class Disease
@@ -206,6 +161,7 @@ namespace WpfApplication1
         protected string symptoms;
         protected string procedures;
         protected string medicals;
+        protected List<Medicals> meds;
 
         public Disease() { name = ""; symptoms = ""; procedures = ""; medicals = ""; }
         public Disease(string name, string symptoms, string procedures, string medicals)
@@ -214,18 +170,6 @@ namespace WpfApplication1
             this.symptoms = symptoms;
             this.procedures = procedures;
             this.medicals = medicals;
-        }
-
-    }
-
-    public class SimpleDisease : Disease
-    {
-        public int lvl;
-
-        public SimpleDisease() : base() { lvl = 1; }
-        public SimpleDisease(string name, string symptoms, string procedures, string medicals, int lvl) : base(name, symptoms, procedures, medicals)
-        {
-            this.lvl = lvl;
         }
         public string Name
         {
@@ -247,9 +191,26 @@ namespace WpfApplication1
             set { medicals = value; }
             get { return medicals; }
         }
+    }
+
+    public class SimpleDisease : Disease
+    {
+        public int lvl;
+
+        public SimpleDisease() : base() { lvl = 1; }
+        public SimpleDisease(string name, string symptoms, string procedures, string medicals, int lvl) : base(name, symptoms, procedures, medicals)
+        {
+            this.lvl = lvl;
+        }
+       
         public int Lvl
         {
             get { return lvl; }
+        }
+
+        public void AddMeds(Medicals a)
+        {
+            meds.Add(a);
         }
 
     }
@@ -263,38 +224,27 @@ namespace WpfApplication1
         {
             this.lvl = lvl;
         }
-        public string Name
-        {
-            set { name = value; }
-            get { return name; }
-        }
-        public string Symptoms
-        {
-            set { symptoms = value; }
-            get { return symptoms; }
-        }
-        public string Procedures
-        {
-            set { procedures = value; }
-            get { return procedures; }
-        }
-        public string Medicals
-        {
-            set { medicals = value; }
-            get { return medicals; }
-        }
         public int Lvl
         {
             get { return lvl; }
         }
+        public void AddMeds(Medicals a)
+        {
+            meds.Add(a);
+        }
     }
 
-
+    public class Recipy
+    {
+        public List<Medicals> meds;
+        Recipy() { }
+    }
 
     public class Pharmacy
     {
-        string name;
-        string address;
+        public string name;
+        public string address;
+        public List<Medicals> medicals;
 
         Pharmacy() { name = "Pharmacy"; address = "Address"; }
         Pharmacy(string name,string address)
